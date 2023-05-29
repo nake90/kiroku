@@ -1,0 +1,205 @@
+/*
+Paleta de colores:
+
+Claro
+
+#2B3467 - Texto
+#BAD7E9 - Cancel
+#FCFFE7 - Background
+#EB455F - OK
+
+Oscuro
+*/
+
+:root {
+    --background-color: #FCFFE7;
+    --text-color: #2B3467;
+    --boton-color: #EB455F;
+    --cancel-color: #BAD7E9;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background-color: #2C3333;
+        --text-color: #CBE4DE;
+        --boton-color: #0E8388;
+        --cancel-color: #2E4F4F;
+    }
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--background-color);
+    font-family: Verdana;
+    color: var(--text-color);
+}
+
+/*thead {color: green;}*/
+
+table {
+    width: 100%;
+    margin-top: 8px;
+}
+
+th {
+    padding: 5px;
+    text-align: center;
+    font-size: 4vw;
+}
+
+td {
+    padding: 5px;
+    text-align: center;
+    font-size: 4vw;
+}
+
+td.hour, a.hour {
+    text-decoration: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 1%;
+    white-space: nowrap;
+    color: green; /* TODO CHANGEME */
+}
+
+td.nowrap {
+    white-space: nowrap;
+}
+
+div.addNuevo {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+}
+
+input[type=button],
+input[type=submit],
+a.addNuevo {
+    text-decoration: none;
+    font-weight: bold;
+    color: var(--background-color);
+    background: var(--boton-color);
+    padding: 7px 7px;
+    border-radius: 8px;
+    font-size: 8vw;
+}
+
+input[type=button]:hover,
+input[type=submit]:hover,
+a.addNuevo:hover {
+    filter: brightness(120%);
+}
+
+input[type=button]:focus,
+input[type=submit]:focus,
+a.addNuevo:focus {
+    filter: brightness(150%);
+}
+
+a.cancelar {
+    text-decoration: none;
+    color: var(--background-color);
+    background: var(--cancel-color);
+    padding: 7px 7px;
+    border-radius: 8px;
+    font-size: 8vw;
+}
+
+a.cancelar:hover {
+    filter: brightness(120%);
+    color: var(--text-color);
+}
+
+a.cancelar:focus {
+    filter: brightness(150%);
+    color: var(--text-color);
+}
+
+div.cambiofecha {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+}
+
+a.cambiofecha, label.cambiofecha {
+    text-decoration: none;
+    color: var(--background-color);
+    background: var(--boton-color);
+    padding: 7px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+a.cambiofecha:hover, label.cambiofecha:hover {
+    filter: brightness(120%);
+}
+
+a.cambiofecha:focus, label.cambiofecha:focus {
+    filter: brightness(150%);
+}
+
+
+div.formInput {
+    justify-content: space-between;
+    margin-top: 8px;
+    margin-bottom: 12px;
+}
+
+#expend {
+    display: none;
+}
+
+#expend + .smalldesc {
+    max-height:0px;
+    overflow:hidden;
+    transition:all .3s ease;
+}
+
+#expend:checked + .smalldesc {
+    max-height:250px;  
+}
+
+.stoppedSW {
+    color: gray; /* TODO CHANGEME */
+}
+
+.runningSW {
+    color: green; /* TODO CHANGEME */
+}
+
+.stopwatch {
+    display: inline-block;
+    width: 40vw;
+    height: 40vw;
+    line-height: 40vw;
+    border-radius: 50%;
+    text-align: center;
+    border: 4px solid;
+}
+
+.stopwatch span {
+    font-weight: bold;
+    display: block;
+}
+
+.stopwatch a {
+    padding-left: 5px;
+    padding-right: 5px;
+    text-decoration: none;
+    font-size: 8vw;
+}
+
+/*
+div.memoInput {
+    display: flex;
+    flex: 1 1 auto;
+}
+*/
+
+.memoInputText {
+    width: 100%;
+}
+
