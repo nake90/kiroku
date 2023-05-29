@@ -1,4 +1,4 @@
-# What is kiroku?
+# What is kiroku (記緑)?
 
 Kiroku is a web app for tracking your baby privately in your own server.
 
@@ -6,6 +6,9 @@ All data is stored locally, there is absolutely no tracking, no calling home, no
 You can now keep track of your baby without needing to sell your newborn's soul to a greedy data broker.
 
 There is only one single thing that uses an external service: the chart system. Once I figure out how to install it locally I will update it. Merge requests to make it optional are also welcome!
+
+Why is it called Kiroku (記緑)? Isn't that a typo and should be 記録 instead?
+Kiroku (記録) means to record in Japanese, but my baby is called 緑 (ろく) so it is a game merging both into 記緑.
 
 # What does kiroku track?
 
