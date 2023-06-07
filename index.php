@@ -199,7 +199,7 @@ if ( $conn->connect_error )
                         $notas .= "</br>\n";
                     }
                     
-                    $notas .= $row['data'];
+                    $notas .= htmlspecialchars($row['data']);
                 }
             }
             

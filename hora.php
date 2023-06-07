@@ -125,9 +125,9 @@ echo "<input type=\"hidden\" id=\"canary\" name=\"canary\" value=\"$canary\">";
         while ($row = $result->fetch_assoc())
         {
             $logtime = $row['hora'];
-            $evento = $row['what'];
-            $datos = $row['data'];
-            $quien = $row['by_who'];
+            $evento = htmlspecialchars($row['what']);
+            $datos = htmlspecialchars($row['data'], ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401, 'UTF-8', false);
+            $quien = htmlspecialchars($row['by_who']);
             $units = '';
             $inputmode = '';
             $noedit = false;
@@ -203,7 +203,7 @@ echo "<input type=\"hidden\" id=\"canary\" name=\"canary\" value=\"$canary\">";
             {
                 printf("<input type=\"text\" %s id=\"newdata\" name=\"newdata\" class=\"memoInputText\" style=\"font-size: 4vw\" value=\"%s\" />", $inputmode, $datos);
             }
-            echo '</td>\n';
+            echo "</td>\n";
             //printf("<td>%s</td>\n", $quien);
             
             echo '<td>';
