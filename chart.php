@@ -176,6 +176,8 @@ $comida_array['formula']['dia'] = array();
 $comida_array['formula']['semana'] = array();
 $comida_array['formula']['mes'] = array();
 
+$last_comida_time = false;
+
 $same_meal_range_minutes = 30; // If multiple entries happen in less than this, they are considered the same meal
 
 function increment_count($what, $eventTime)
@@ -275,6 +277,7 @@ $result = $stmt->get_result();
 while ($row = $result->fetch_assoc())
 {
     $when = DateTimeImmutable::createFromFormat('U', $row['unixtime']);
+    
     $what = $row['what'];
     $data = $row['data'];
     
@@ -297,6 +300,11 @@ while ($row = $result->fetch_assoc())
         check_insert_comida('teta', $when);
 
         $hour_teta[(int)$when->format('H')] += 1;
+
+        if ($last_comida_time === false || $last_comida_time < $when)
+        {
+            $last_comida_time = $when;
+        }
     }
     elseif ( $what == 'biberon' )
     {
@@ -304,12 +312,22 @@ while ($row = $result->fetch_assoc())
         increment_count($what, $when);
         check_insert_comida('comida', $when);
         check_insert_comida('formula', $when);
+
+        if ($last_comida_time === false || $last_comida_time < $when)
+        {
+            $last_comida_time = $when;
+        }
     }
     elseif ( $what == 'biberon-mama' )
     {
         increment_quantity($what, $when, (int)$data);
         check_insert_comida('comida', $when);
         // increment_count($what, $when);
+
+        if ($last_comida_time === false || $last_comida_time < $when)
+        {
+            $last_comida_time = $when;
+        }
     }
     elseif ( $what == 'bomba-izq' || $what == 'bomba-der' )
     {
@@ -380,6 +398,28 @@ function format_hora($minutos)
 function print_summary_table_row_data_h($what)
 {
     printf('<td>%s</td><td>%s</td><td>%s</td>', format_hora($what['dia']), format_hora($what['semana']), format_hora($what['mes']));
+}
+
+
+if ($last_comida_time != false)
+{
+    $now = new DateTime();
+    $time_since_last_food_diff = $now->diff($last_comida_time, true);
+    
+    $horas = $time_since_last_food_diff->days * 24 + $time_since_last_food_diff->h;
+    $minutos = $time_since_last_food_diff->i;
+    
+    $colorStyle = 'green';
+    if (($horas == 1 && $minutos >= 30) || ($horas == 2 && $minutos <= 30))
+    {
+        $colorStyle = 'orange';
+    }
+    else if ($horas > 2 || ($horas == 2 && $minutos > 30))
+    {
+        $colorStyle = 'red';
+    }
+    
+    printf('<p style="font-size: 3vw">Última comida hace: <b style="color: %s">%dh%02d</b></p>', $colorStyle, $horas, $minutos);
 }
 
 ?>
