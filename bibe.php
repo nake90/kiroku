@@ -87,7 +87,7 @@ function roundUpToAny($n,$x=5) {
     return (round($n)%$x === 0) ? round($n) : round(($n+$x/2)/$x)*$x;
 }
 
-$stmt = $conn->prepare("SELECT what, data, UNIX_TIMESTAMP(logtime) as unixtime FROM $dbTable WHERE logtime >= ? AND (what = 'bomba-izq' OR what = 'bomba-der' OR what = 'biberon-mama') ORDER BY logtime ASC LIMIT 100");
+$stmt = $conn->prepare("SELECT what, data, UNIX_TIMESTAMP(logtime) as unixtime FROM $dbTable WHERE logtime >= ? AND (what = 'bomba-izq' OR what = 'bomba-der' OR what = 'biberon-mama' OR what = 'del-bomba') ORDER BY logtime ASC LIMIT 100");
 $stmt->bind_param("s", $startStr);
 
 $diaActual = new DateTimeImmutable();
@@ -132,7 +132,7 @@ while ($row = $result->fetch_assoc())
         
         $mergeTimeStart = $row['unixtime'];
     }
-    elseif ($row['what'] === 'biberon-mama')
+    elseif ($row['what'] === 'biberon-mama' || $row['what'] === 'del-bomba')
     {
         $toRemove = (int)$row['data'];
         
@@ -228,6 +228,11 @@ for ($index = 0 ; $index < sizeof($botellas) ; $index++)
 <tr>
     <td>
         <label style="font-size: 12vw"><input class="bomba_lado" type="checkbox" id="bomba_der" name="bomba_der" onclick="bombaIzqDerClick()" />右</label>
+    </td>
+</tr>
+<tr>
+    <td colspan="2">
+        <label style="font-size: 12vw"><input type="radio" id="what" name="what" value="del-bomba" onclick="bombaUncheckAll()" />💧🗑</label>
     </td>
 </tr>
 

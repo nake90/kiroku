@@ -70,6 +70,22 @@ function parseAndInsert($what, $canary)
             }
         }
     }
+    else if ($what === 'del-bomba')
+    {
+        if (isset($_GET['ml']))
+        {
+            $ml = (int)$_GET['ml'];
+
+            if ($ml > 0 && $ml < 1000)
+            {
+                insert($what, $ml, $who, $canary, $when) or die ('Database insert error');
+            }
+            else
+            {
+                die ('Numero incorrecto');
+            }
+        }
+    }
     else if ($what === 'bomba')
     {
         if (isset($_GET['ml']))
